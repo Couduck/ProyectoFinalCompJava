@@ -5,5 +5,5 @@ import java.util.LinkedHashMap;
 public interface ManejadorArchivos
 {
     void load() throws IOException;
-    void write();
+    void write() throws IOException;
 }
