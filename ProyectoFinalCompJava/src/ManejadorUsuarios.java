@@ -8,7 +8,7 @@ public class ManejadorUsuarios implements ManejadorArchivos
 
     @Override
     public void load() throws IOException {
-        FileReader textoCompleto = new FileReader("Usuarios.txt");   //El file reader que permitirá leer el archivo
+        FileReader textoCompleto = new FileReader("Databases\\Usuarios.txt");   //El file reader que permitirá leer el archivo
         BufferedReader bufred = new BufferedReader(textoCompleto);              //Se genera el buffered reader
         String linea;                                                           //ALmacena cada linea del documento
         while((linea = bufred.readLine())!= null)                               //Mientras no se haya llegado al final del archivo
@@ -27,7 +27,7 @@ public class ManejadorUsuarios implements ManejadorArchivos
 
     public void solicitudIngreso() throws IOException
     {
-        File archivo = new File("Usuarios.txt");    //Se crea el archivo
+        File archivo = new File("Databases\\Usuarios.txt");    //Se crea el archivo
         ManejadorUsuarios us_handler = new ManejadorUsuarios();
 
         if(!archivo.exists())   //Si el archivo no existe en el programa, se envia error y no se inicializa

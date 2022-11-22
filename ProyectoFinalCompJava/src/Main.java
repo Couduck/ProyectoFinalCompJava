@@ -11,6 +11,8 @@ public class Main {
     static ManejadorUsuarios userHandler = new ManejadorUsuarios();
     static ManejadorDoctores doctorHandler = new ManejadorDoctores();
 
+    static ManejadorPacientes pacientHandler = new ManejadorPacientes();
+
     public static void main(String[] args) throws IOException
     {
         userHandler.solicitudIngreso();
@@ -50,11 +52,13 @@ public class Main {
                         break;
 
                     case 'B':
-
+                        pacientHandler.ingresarNuevoPaciente();
+                        accionValida = false;
                         break;
 
                     case 'C':
-
+                        //Citas
+                        accionValida = false;
                         break;
 
                     case 'D':
