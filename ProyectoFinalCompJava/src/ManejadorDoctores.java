@@ -73,7 +73,7 @@ public class ManejadorDoctores implements ManejadorArchivos     //Manejador de a
                 {
                     do
                     {
-                        nombreDoctor = (String) JOptionPane.showInputDialog(null,"Ingreses el nombre del doctor", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE);
+                        nombreDoctor = (String) JOptionPane.showInputDialog(null,"Ingrese el nombre del doctor", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE);
                         char notEmpty = nombreDoctor.charAt(0);
                         nombreIngresado = true;
                     }

@@ -259,7 +259,7 @@ public class ManejadorCitas implements ManejadorArchivos    //Manejador del arch
 
                             //Se pide que se elija de entre las opciones al doctor correcto
                             doctorSeleccionado = (String) JOptionPane.showInputDialog(null,"Seleccione el doctor especifico", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE, null,nombresDoctores, nombresDoctores[0]);
-                            notEmpty = pacienteAsignado.charAt(0);
+                            notEmpty = doctorSeleccionado.charAt(0);
 
                             //Se recupera el indice del doctor seleccionado para no perderlo
                             indiceDoctor = Arrays.asList(nombresDoctores).indexOf(doctorSeleccionado);
@@ -302,7 +302,7 @@ public class ManejadorCitas implements ManejadorArchivos    //Manejador del arch
                             }
 
                             pacienteSeleccionado = (String) JOptionPane.showInputDialog(null,"Seleccione el paciente especifico", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE, null, nombresPacientes, nombresPacientes[0]);
-                            notEmpty = pacienteAsignado.charAt(0);
+                            notEmpty = pacienteSeleccionado.charAt(0);
                             indicePaciente = Arrays.asList(nombresPacientes).indexOf(pacienteSeleccionado);
                         }
                     }

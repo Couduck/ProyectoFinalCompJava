@@ -66,7 +66,7 @@ public class ManejadorUsuarios implements ManejadorArchivos     //Manejador del 
                         do
                         {
                             //Se ingresa el usuario y se verifica que exista en la base de datos
-                            nombreUsuario = (String) JOptionPane.showInputDialog(null,"Ingreses su nombre de usuario", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE);
+                            nombreUsuario = (String) JOptionPane.showInputDialog(null,"Ingrese su nombre de usuario", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE);
                             char notEmpty = nombreUsuario.charAt(0);
                             usuarioExiste = this.cursor.containsKey(nombreUsuario);
 
