@@ -2,12 +2,13 @@ import javax.swing.*;
 import java.io.*;
 import java.util.LinkedHashMap;
 
-public class ManejadorUsuarios implements ManejadorArchivos
+public class ManejadorUsuarios implements ManejadorArchivos     //Manejador del archivo de usuario
 {
-    LinkedHashMap<String, String> cursor = new LinkedHashMap<>();
+    LinkedHashMap<String, String> cursor = new LinkedHashMap<>();   //Cursor intermedio entre el programa y el archivo
 
     @Override
-    public void load() throws IOException {
+    public void load() throws IOException   //Carga los valores del archivo al cursor
+    {
         FileReader textoCompleto = new FileReader("Databases\\Usuarios.txt");   //El file reader que permitirá leer el archivo
         BufferedReader bufred = new BufferedReader(textoCompleto);              //Se genera el buffered reader
         String linea;                                                           //ALmacena cada linea del documento
@@ -21,11 +22,12 @@ public class ManejadorUsuarios implements ManejadorArchivos
     }
 
     @Override
-    public void write() {
+    public void write()     //Guarda los valores del cursor al archivo
+    {
 
     }
 
-    public void solicitudIngreso() throws IOException
+    public void solicitudIngreso() throws IOException   //Proceso para el ingreso de un usuario
     {
         File archivo = new File("Databases\\Usuarios.txt");    //Se crea el archivo
         ManejadorUsuarios us_handler = new ManejadorUsuarios();
@@ -38,11 +40,11 @@ public class ManejadorUsuarios implements ManejadorArchivos
 
         else
         {
-            String nombreUsuario = "";
-            String passwordIngresada, passwordReal;
-            boolean usuarioExiste, usuarioIngresado = false, passwordCorrecta;
+            String nombreUsuario = "";  //Guarda nombre del usuario
+            String passwordIngresada, passwordReal; //Guarda el password ingresado y en otra, el password correcto
+            boolean usuarioExiste, usuarioIngresado = false, passwordCorrecta;  //evaluan dependiendo de la situación
             int salirProceso;               //La opcion que guarda el int que dicta si salir del programa o no
-            boolean accionValida;
+            boolean accionValida;   //Evalua el ciclo completo
 
             do
             {
@@ -50,9 +52,9 @@ public class ManejadorUsuarios implements ManejadorArchivos
 
                 try
                 {
-                    this.load();
+                    this.load();    //Se cargan los usuarios existentes
 
-                    if(this.cursor.isEmpty())
+                    if(this.cursor.isEmpty())   //Si no se obtuvo nada, significa que no hay usuarios, y no se puede usar el programa
                     {
                         JOptionPane.showMessageDialog(null, "Error, Archivo \"Usuarios.txt\" vacio.","PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
                         System.exit(0);
@@ -63,10 +65,12 @@ public class ManejadorUsuarios implements ManejadorArchivos
                     {
                         do
                         {
+                            //Se ingresa el usuario y se verifica que exista en la base de datos
                             nombreUsuario = (String) JOptionPane.showInputDialog(null,"Ingreses su nombre de usuario", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE);
                             char notEmpty = nombreUsuario.charAt(0);
                             usuarioExiste = this.cursor.containsKey(nombreUsuario);
 
+                            //Si el usuario no existe, no se puede continuar
                             if(!usuarioExiste)
                             {
                                 JOptionPane.showMessageDialog(null, "Error: Usuario inexistente en base de datos, intente de nuevo","PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
@@ -81,11 +85,13 @@ public class ManejadorUsuarios implements ManejadorArchivos
                     //Solicitud entrada contraseña
                     do
                     {
+                        //Se ingresa la contraseña y se compara con la contraseña guardada del usuario respectivo
                         passwordIngresada = (String) JOptionPane.showInputDialog(null,"Ingrese su password", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE);
                         char notEmpty = passwordIngresada.charAt(0);
                         passwordReal = this.cursor.get(nombreUsuario);
                         passwordCorrecta = passwordIngresada.equals(passwordReal);
 
+                        //Si el password no es el correcto
                         if(!passwordCorrecta)
                         {
                             JOptionPane.showMessageDialog(null, "Error: Password incorrecto para usuario ingresado, intente de nuevo","PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
@@ -93,6 +99,7 @@ public class ManejadorUsuarios implements ManejadorArchivos
                     }
                     while (!passwordCorrecta);
 
+                    //Mensaje de bienvenida
                     JOptionPane.showMessageDialog(null, "Bienvenido: " + nombreUsuario,"PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
                 }
 
@@ -125,5 +132,4 @@ public class ManejadorUsuarios implements ManejadorArchivos
             while (!accionValida);
         }
     }
-
 }

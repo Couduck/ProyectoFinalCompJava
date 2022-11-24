@@ -2,13 +2,14 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class ManejadorDoctores implements ManejadorArchivos
+public class ManejadorDoctores implements ManejadorArchivos     //Manejador de archivo de doctores
 {
 
-    ArrayList<Doctor> cursor = new ArrayList<Doctor>();
+    ArrayList<Doctor> cursor = new ArrayList<Doctor>();     //Cursor que interactua con el arhivo de doctores
 
     @Override
-    public void load() throws IOException {
+    public void load() throws IOException       //Carga el contenido del archivo al cursor
+    {
         cursor = new ArrayList<Doctor>();
         FileReader textoCompleto = new FileReader("Databases\\Doctores.txt");   //El file reader que permitirá leer el archivo
         BufferedReader bufred = new BufferedReader(textoCompleto);              //Se genera el buffered reader
@@ -26,9 +27,8 @@ public class ManejadorDoctores implements ManejadorArchivos
     }
 
     @Override
-    public void write() throws IOException
+    public void write() throws IOException      //Guarda el contenido del cursor en el archivo
     {
-
         FileWriter meterLista = new FileWriter("Databases\\Doctores.txt");     //Se genera un filewriter paar el archivo
 
         for(int i = 0; i < cursor.size(); i++)    //Se inserta cada contacto en el archivo de texto
@@ -48,7 +48,7 @@ public class ManejadorDoctores implements ManejadorArchivos
         meterLista.close();  //Se cierra el File Writer
     }
 
-    public void ingresarNuevoDoctor() throws IOException
+    public void ingresarNuevoDoctor() throws IOException    //Proceso para el ingreso de un nuevo doctor
     {
         File archivo = new File("Databases\\Doctores.txt");    //Se crea el archivo
 
@@ -57,8 +57,8 @@ public class ManejadorDoctores implements ManejadorArchivos
             this.load();
         }
 
-        String nombreDoctor = "", apellidoPatDoctor = "", apellidoMatDoctor = "", especialidadDoctor = "";
-        boolean nombreIngresado = false,  apellidoPatIngresado = false, apellidoMatIngresado = false, especialidadIngresada = false;
+        String nombreDoctor = "", apellidoPatDoctor = "", apellidoMatDoctor = "", especialidadDoctor = "";  //Almacenan los valores para crear a los doctores
+        boolean nombreIngresado = false,  apellidoPatIngresado = false, apellidoMatIngresado = false, especialidadIngresada = false;    //Verifican si el valor ya fue ingresado
         int salirProceso;               //La opcion que guarda el int que dicta si salir del programa o no
         boolean accionValida;
 
@@ -80,7 +80,7 @@ public class ManejadorDoctores implements ManejadorArchivos
                     while (!nombreIngresado);
                 }
 
-                //Solicitud apellido paterno
+                //Solicitud entrada apellido paterno
                 if(!apellidoPatIngresado)
                 {
                     do
@@ -92,6 +92,7 @@ public class ManejadorDoctores implements ManejadorArchivos
                     while (!apellidoPatIngresado);
                 }
 
+                //Solicitud entrada apellido materno
                 if(!apellidoMatIngresado)
                 {
                     do
@@ -103,6 +104,7 @@ public class ManejadorDoctores implements ManejadorArchivos
                     while (!apellidoMatIngresado);
                 }
 
+                //Solicitud entrada especialidad
                 if(!especialidadIngresada)
                 {
                     do
@@ -114,12 +116,14 @@ public class ManejadorDoctores implements ManejadorArchivos
                     while (!especialidadIngresada);
                 }
 
+                //Fabricacion de objeto de doctor, actualización de contador y guardado en archivo
                 String[] nombreCompleto = {nombreDoctor, apellidoPatDoctor, apellidoMatDoctor};
                 Doctor nuevoDoctor = new Doctor(recuperarDoctoresTotales()+1, nombreCompleto, especialidadDoctor);
                 cursor.add(nuevoDoctor);
                 actualizarDoctoresTotales(nuevoDoctor.getID());
                 this.write();
 
+                //Mensaje de guardado exitoso
                 JOptionPane.showMessageDialog(null, "Nuevo doctor creado exitosamente.","PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
 
             }
@@ -153,7 +157,7 @@ public class ManejadorDoctores implements ManejadorArchivos
         while (!accionValida);
     }
 
-    public int recuperarDoctoresTotales() throws IOException
+    public int recuperarDoctoresTotales() throws IOException    //Recupera el contador del archivo del contador de doctores
     {
         FileReader archivo = new FileReader("Contadores\\ContadorTotalDoctores.txt");
 
@@ -166,12 +170,18 @@ public class ManejadorDoctores implements ManejadorArchivos
         return regresar;
     }
 
-    public void actualizarDoctoresTotales(int nuevoValor) throws IOException
+    public void actualizarDoctoresTotales(int nuevoValor) throws IOException    //Actualiza el contador del archivo del contador de doctores
     {
         FileWriter archivo = new FileWriter("Contadores\\ContadorTotalDoctores.txt");
 
         archivo.write(String.valueOf(nuevoValor));
 
         archivo.close();
+    }
+
+    public ArrayList<Doctor> getCursor() throws IOException     //Obtiene el cursor de la clase
+    {
+        load();
+        return cursor;
     }
 }

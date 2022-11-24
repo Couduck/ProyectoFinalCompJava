@@ -2,12 +2,14 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class ManejadorPacientes implements ManejadorArchivos{
+public class ManejadorPacientes implements ManejadorArchivos    //Manejador de archivo de pacientes
+{
 
-    ArrayList<Paciente> cursor = new ArrayList<Paciente>();
+    ArrayList<Paciente> cursor = new ArrayList<Paciente>();     //Cursor intermediario entre archivo de pacientes y programa
 
     @Override
-    public void load() throws IOException {
+    public void load() throws IOException       //Cargar loss valores del archivo al cursor
+    {
         cursor = new ArrayList<Paciente>();
         FileReader textoCompleto = new FileReader("Databases\\Pacientes.txt");   //El file reader que permitirá leer el archivo
         BufferedReader bufred = new BufferedReader(textoCompleto);              //Se genera el buffered reader
@@ -25,7 +27,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
     }
 
     @Override
-    public void write() throws IOException
+    public void write() throws IOException      //Guardar los valores del cursor en el archivo
     {
         FileWriter meterLista = new FileWriter("Databases\\Pacientes.txt");     //Se genera un filewriter paar el archivo
 
@@ -46,7 +48,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
         meterLista.close();  //Se cierra el File Writer
     }
 
-    public void ingresarNuevoPaciente() throws IOException
+    public void ingresarNuevoPaciente() throws IOException      //Metodo para ingresar un nuevo paciente
     {
         File archivo = new File("Databases\\Pacientes.txt");    //Se crea el archivo
 
@@ -55,8 +57,8 @@ public class ManejadorPacientes implements ManejadorArchivos{
             this.load();
         }
 
-        String nombrePaciente = "", apellidoPatPaciente = "", apellidoMatPaciente = "";
-        boolean nombreIngresado = false,  apellidoPatIngresado = false, apellidoMatIngresado = false;
+        String nombrePaciente = "", apellidoPatPaciente = "", apellidoMatPaciente = "";     //Valores para crear al paciente
+        boolean nombreIngresado = false,  apellidoPatIngresado = false, apellidoMatIngresado = false;      //Verifican que los valores ya fueron ingresados
         int salirProceso;               //La opcion que guarda el int que dicta si salir del programa o no
         boolean accionValida;
 
@@ -66,7 +68,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
 
             try
             {
-                //Solicitud entrada nombre de doctor
+                //Solicitud entrada nombre de paciente
                 if(!nombreIngresado)
                 {
                     do
@@ -78,7 +80,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
                     while (!nombreIngresado);
                 }
 
-                //Solicitud apellido paterno
+                //Solicitud apellido paterno de paciente
                 if(!apellidoPatIngresado)
                 {
                     do
@@ -90,7 +92,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
                     while (!apellidoPatIngresado);
                 }
 
-                //Solicitud apellido materno
+                //Solicitud apellido materno de paciente
                 if(!apellidoMatIngresado)
                 {
                     do
@@ -102,6 +104,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
                     while (!apellidoMatIngresado);
                 }
 
+                //Creación de objeto paciente, actualización al contador y guardado en cursor y archivo
                 String[] nombreCompleto = {nombrePaciente, apellidoPatPaciente, apellidoMatPaciente};
                 Paciente nuevoPaciente = new Paciente(recuperarPacientesTotales()+1, nombreCompleto);
                 cursor.add(nuevoPaciente);
@@ -141,7 +144,7 @@ public class ManejadorPacientes implements ManejadorArchivos{
         while (!accionValida);
     }
 
-    public int recuperarPacientesTotales() throws IOException
+    public int recuperarPacientesTotales() throws IOException       //Recupera el contador total de pacientes
     {
         FileReader archivo = new FileReader("Contadores\\ContadorTotalPacientes.txt");
 
@@ -154,12 +157,18 @@ public class ManejadorPacientes implements ManejadorArchivos{
         return regresar;
     }
 
-    public void actualizarPacientesTotales(int nuevoValor) throws IOException
+    public void actualizarPacientesTotales(int nuevoValor) throws IOException       //Actualiza el contador total de pacientes
     {
         FileWriter archivo = new FileWriter("Contadores\\ContadorTotalPacientes.txt");
 
         archivo.write(String.valueOf(nuevoValor));
 
         archivo.close();
+    }
+
+    public ArrayList<Paciente> getCursor() throws IOException       //Recupera el cursor de la clase
+    {
+        load();
+        return cursor;
     }
 }

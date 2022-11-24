@@ -1,26 +1,38 @@
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.text.ParseException;
 
 public class Main {
 
+    //Todos estos objetos son manejadores de archivos, estos se encargan de administrar las escrituras y lecturas a sus respectivos archivos, asi como los métodos para ingresar nuevos registros
     static ManejadorUsuarios userHandler = new ManejadorUsuarios();
     static ManejadorDoctores doctorHandler = new ManejadorDoctores();
-
     static ManejadorPacientes pacientHandler = new ManejadorPacientes();
 
-    public static void main(String[] args) throws IOException
+    static ManejadorCitas appointmentHandler;
+
+    static
+    {
+        try
+        {
+            appointmentHandler = new ManejadorCitas();
+        }
+
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ParseException   //Metodo main: Se pide el ingreso por usuario y contraseña y luego se ejecuta el menu
     {
         userHandler.solicitudIngreso();
         showMenu();
     }
 
-    private static void showMenu() throws IOException
+    private static void showMenu() throws IOException, ParseException   //Metodo encargado de desplegar el menu del sistema
     {
+        //Opciones del menu
         String[] opciones = {
                 "A) Registrar nuevo Doctor",
                 "B) Registrar nuevo Paciente",
@@ -35,35 +47,34 @@ public class Main {
         {
             accionValida = true;
 
-            //Almacena las opciones elegidas por el usuario, tanto para el atributo que desea calcular como la forma que desea usar
+            //Almacena el primer caracter de la opcion elegida
             char eleccionSwit;
 
             try
             {
                 //Panel que despliega el atributo a calcular
-                eleccionCompleta = (String) JOptionPane.showInputDialog(null,"Seleccione la opcion que desea ejecutar", "ACTIVIDAD 13: Anonimos, Lambda y referencias", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+                eleccionCompleta = (String) JOptionPane.showInputDialog(null,"Seleccione la opcion que desea ejecutar", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
                 eleccionSwit = eleccionCompleta.charAt(0);
 
-                switch(eleccionSwit) //Dependiendo de la figura elegida, se ejecuta la acción especifica
+                switch(eleccionSwit) //Dependiendo de la opcion elegida, se ejecuta la acción especifica
                 {
-                    case 'A':
+                    case 'A':   //Ingresar un nuevo doctor a la base de datos
                         doctorHandler.ingresarNuevoDoctor();
                         accionValida = false;
                         break;
 
-                    case 'B':
+                    case 'B':   //Ingresar un nuevo paciente a la base de datos
                         pacientHandler.ingresarNuevoPaciente();
                         accionValida = false;
                         break;
 
-                    case 'C':
-                        //Citas
+                    case 'C':   //Ingresar una nueva cita a la base de datos
+                        appointmentHandler.ingresarNuevaCita();
                         accionValida = false;
                         break;
 
-                    case 'D':
-                        //Salir del programa
-                        JOptionPane.showMessageDialog(null,"Programa terminado", "ACTIVIDAD 13: Anonimos, Lambda y referencias", JOptionPane.INFORMATION_MESSAGE);
+                    case 'D':   //Salir del programa
+                        JOptionPane.showMessageDialog(null,"Programa terminado", "PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
                         System.exit(0);
                         break;
                 }
@@ -72,12 +83,12 @@ public class Main {
             catch(NullPointerException a) //El usuario seleccionó la opcion de cerrar el mensaje o de cancelar
             {
                 //Se pregunta si el usuario desea salir del programa usando unicamente la opcion de si o no
-                salirProceso = JOptionPane.showConfirmDialog(null,"Quiere salir del programa?", "ACTIVIDAD 13: Anonimos, Lambda y referencias", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                salirProceso = JOptionPane.showConfirmDialog(null,"Quiere salir del programa?", "PROYECTO FINAL JAVA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                 //Si presiona Si
                 if(salirProceso == JOptionPane.YES_OPTION)
                 {
-                    JOptionPane.showMessageDialog(null,"Programa terminado", "ACTIVIDAD 13: Anonimos, Lambda y referencias", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Programa terminado", "PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
                     System.exit(0);
                 }
 
@@ -90,7 +101,7 @@ public class Main {
 
             catch(IndexOutOfBoundsException b) //El usuario no ingresó nada y dió aceptar de todas formas
             {
-                JOptionPane.showMessageDialog(null,"Comando no reconocido, vuelva a intentarlo", "ACTIVIDAD 13: Anonimos, Lambda y referencias", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Comando no reconocido, vuelva a intentarlo", "PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
                 accionValida = false;
             }
         }

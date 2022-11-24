@@ -1,13 +1,15 @@
-public class Paciente
+public class Paciente       //Clase del paciente
 {
-    private int ID;
-    private String[] nombreCompleto;
+    private int ID;     //Id del paciente
+    private String[] nombreCompleto;    //Nombre completo del paciente: nombre, apellidos materno y paterno
 
-    public Paciente(int ID, String[] nombreCompleto) {
+    public Paciente(int ID, String[] nombreCompleto) //Constructor
+    {
         this.ID = ID;
         this.nombreCompleto = nombreCompleto;
     }
 
+    //Getter
     public int getID() {
         return ID;
     }
