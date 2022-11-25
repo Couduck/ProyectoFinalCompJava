@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 public class ManejadorCitas implements ManejadorArchivos    //Manejador del archivo de citas
 {
@@ -353,6 +355,61 @@ public class ManejadorCitas implements ManejadorArchivos    //Manejador del arch
         while (!accionValida);
     }
 
+    public void mostrarCitas() throws IOException
+    {
+        boolean accionValida;
+
+        do
+        {
+            accionValida = true;
+
+            try
+            {
+                load();
+
+                String[] citasString = new String[cursor.size()];
+
+                int i = 0;
+                for (Cita cita: cursor)
+                {
+                    citasString[i] = cita.getFecha() + ", " + cita.getHora();
+                    i++;
+                }
+
+                String citaSeleccionada = (String) JOptionPane.showInputDialog(null,"Seleccione la cita especifica que desea revisar", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE, null, citasString, citasString[0]);
+                char notEmpty = citaSeleccionada.charAt(0);
+                int indiceCita = Arrays.asList(citasString).indexOf(citaSeleccionada);
+
+                JOptionPane.showMessageDialog(null, cursor.get(indiceCita).toString(), "PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            catch(NullPointerException a) //El usuario seleccionó la opcion de cerrar el mensaje o de cancelar
+            {
+                //Se pregunta si el usuario desea salir del programa usando unicamente la opcion de si o no
+                int salirProceso = JOptionPane.showConfirmDialog(null,"Quiere cancelar el proceso?", "PROYECTO FINAL JAVA", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                //Si presiona Si
+                if(salirProceso == JOptionPane.YES_OPTION)
+                {
+                    JOptionPane.showMessageDialog(null,"Regresando al menu principal", "PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                //Si presiona No
+                else
+                {
+                    accionValida = false;
+                }
+            }
+
+                catch(IndexOutOfBoundsException b) //El usuario no ingreso nada y dió aceptar de todas formas
+            {
+                JOptionPane.showMessageDialog(null,"No se ha ingresado nada", "PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
+                accionValida = false;
+            }
+        } while (!accionValida);
+    }
+
     public int recuperarCitasTotales() throws IOException   //Se recupera el valor del contador total de citas para poder asignar un ID
     {
         FileReader archivo = new FileReader("Contadores\\ContadorTotalCitas.txt");
@@ -374,4 +431,18 @@ public class ManejadorCitas implements ManejadorArchivos    //Manejador del arch
 
         archivo.close();
     }
+
+    public ArrayList<Cita> getCursor() throws IOException       //Recupera el cursor de la clase
+    {
+        File archivo = new File("Databases\\Citas.txt");
+
+        if (archivo.exists())
+        {
+            load();
+        }
+
+        return cursor;
+    }
+
+
 }

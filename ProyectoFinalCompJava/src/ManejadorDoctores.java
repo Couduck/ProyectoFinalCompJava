@@ -1,11 +1,12 @@
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class ManejadorDoctores implements ManejadorArchivos     //Manejador de archivo de doctores
 {
 
-    ArrayList<Doctor> cursor = new ArrayList<Doctor>();     //Cursor que interactua con el arhivo de doctores
+    static ArrayList<Doctor> cursor = new ArrayList<Doctor>();     //Cursor que interactua con el arhivo de doctores
 
     @Override
     public void load() throws IOException       //Carga el contenido del archivo al cursor
@@ -181,7 +182,31 @@ public class ManejadorDoctores implements ManejadorArchivos     //Manejador de a
 
     public ArrayList<Doctor> getCursor() throws IOException     //Obtiene el cursor de la clase
     {
-        load();
+        File archivo = new File("Databases\\Doctores.txt");
+
+        if (archivo.exists())
+        {
+            load();
+        }
+
         return cursor;
+    }
+
+    public Doctor recuperarPorID(int IDRecuperar) throws IOException
+    {
+        load();
+
+        Doctor regresar = null;
+
+        for (Doctor doctor : cursor)
+        {
+            if(doctor.getID() == IDRecuperar)
+            {
+                regresar = doctor;
+                break;
+            }
+        }
+
+        return regresar;
     }
 }

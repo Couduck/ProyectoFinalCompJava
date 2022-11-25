@@ -1,3 +1,5 @@
+import java.util.Collection;
+
 public class Doctor     //Clase que guarda una cita creada por el usuario, mayormente relevante a la hora de utilizar el cursor respectivo
 {
     private int ID;     //ID del doctor
@@ -22,4 +24,6 @@ public class Doctor     //Clase que guarda una cita creada por el usuario, mayor
     public String getEspecialidad() {
         return especialidad;
     }
+
+
 }

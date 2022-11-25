@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class ManejadorPacientes implements ManejadorArchivos    //Manejador de archivo de pacientes
 {
 
-    ArrayList<Paciente> cursor = new ArrayList<Paciente>();     //Cursor intermediario entre archivo de pacientes y programa
+    static ArrayList<Paciente> cursor = new ArrayList<Paciente>();     //Cursor intermediario entre archivo de pacientes y programa
 
     @Override
     public void load() throws IOException       //Cargar loss valores del archivo al cursor
@@ -168,7 +168,30 @@ public class ManejadorPacientes implements ManejadorArchivos    //Manejador de a
 
     public ArrayList<Paciente> getCursor() throws IOException       //Recupera el cursor de la clase
     {
-        load();
+        File archivo = new File("Databases\\Pacientes.txt");
+
+        if (archivo.exists())
+        {
+            load();
+        }
         return cursor;
+    }
+
+    public Paciente recuperarPorID(int IDRecuperar) throws IOException
+    {
+        load();
+
+        Paciente regresar = null;
+
+        for (Paciente paciente : cursor)
+        {
+            if(paciente.getID() == IDRecuperar)
+            {
+                regresar = paciente;
+                break;
+            }
+        }
+
+        return regresar;
     }
 }

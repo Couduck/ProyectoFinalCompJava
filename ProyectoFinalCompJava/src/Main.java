@@ -26,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ParseException   //Metodo main: Se pide el ingreso por usuario y contraseña y luego se ejecuta el menu
     {
-        userHandler.solicitudIngreso();
+        //userHandler.solicitudIngreso();
         showMenu();
     }
 
@@ -37,7 +37,8 @@ public class Main {
                 "A) Registrar nuevo Doctor",
                 "B) Registrar nuevo Paciente",
                 "C) Registrar nueva Cita",
-                "D) Salir del programa"};
+                "D) Consultar Cita",
+                "E) Salir del programa"};
 
         String eleccionCompleta;        //Captura el valor de la string elegida completa
         int salirProceso;               //La opcion que guarda el int que dicta si salir del programa o no
@@ -69,11 +70,34 @@ public class Main {
                         break;
 
                     case 'C':   //Ingresar una nueva cita a la base de datos
-                        appointmentHandler.ingresarNuevaCita();
+                        if(doctorHandler.getCursor().isEmpty() || pacientHandler.getCursor().isEmpty())
+                        {
+                            JOptionPane.showMessageDialog(null,"No se pueden ingresar citas hasta que por lo menos haya un doctor y un paciente en la base de datos","PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        else
+                        {
+                            appointmentHandler.ingresarNuevaCita();
+                        }
+
                         accionValida = false;
                         break;
 
-                    case 'D':   //Salir del programa
+                    case 'D':   //Ingresar una nueva cita a la base de datos
+                        if(appointmentHandler.getCursor().isEmpty())
+                        {
+                            JOptionPane.showMessageDialog(null,"No hay ninguna cita que revisar","PROYECTO FINAL JAVA", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                        else
+                        {
+                            appointmentHandler.mostrarCitas();
+                        }
+
+                        accionValida = false;
+                        break;
+
+                    case 'E':   //Salir del programa
                         JOptionPane.showMessageDialog(null,"Programa terminado", "PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
                         System.exit(0);
                         break;

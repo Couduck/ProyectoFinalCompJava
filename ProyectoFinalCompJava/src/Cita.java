@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.util.Collection;
 
 public class Cita   //Clase que guarda una cita creada por el usuario, mayormente relevante a la hora de utilizar el cursor respectivo
 {
@@ -44,4 +46,20 @@ public class Cita   //Clase que guarda una cita creada por el usuario, mayorment
     public int getPaciente() {
         return paciente;
     }
+
+    @Override
+    public String toString() {
+        try {
+            Doctor doctor = Main.doctorHandler.recuperarPorID(this.getDoctor());
+            Paciente paciente = Main.pacientHandler.recuperarPorID(this.getPaciente());
+            String nombreDoctor = doctor.getNombreCompleto()[0] + " " +doctor.getNombreCompleto()[1] + " " + doctor.getNombreCompleto()[2];
+            String nombrePaciente = paciente.getNombreCompleto()[0] + " " + paciente.getNombreCompleto()[1] + " " + paciente.getNombreCompleto()[2];
+
+            return "Cita #" + this.getID() + "\n\nFecha: " + this.getFecha() + "\nHora: " + this.getHora() + "\nMotivo: " + this.getMotivo() + "\nDoctor: " + nombreDoctor + "\nPaciente: " + nombrePaciente;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
