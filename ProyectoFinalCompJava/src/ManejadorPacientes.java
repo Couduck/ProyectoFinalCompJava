@@ -177,7 +177,7 @@ public class ManejadorPacientes implements ManejadorArchivos    //Manejador de a
         return cursor;
     }
 
-    public Paciente recuperarPorID(int IDRecuperar) throws IOException
+    public Paciente recuperarPorID(int IDRecuperar) throws IOException      //Recupera del cursor un paciente utilizando como referencia su ID
     {
         load();
 

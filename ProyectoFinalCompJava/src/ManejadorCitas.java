@@ -365,6 +365,7 @@ public class ManejadorCitas implements ManejadorArchivos    //Manejador del arch
 
             try
             {
+                //Se cargan las citas y se convierten a Strings para que se puedan colocar en un JOptionPane
                 load();
 
                 String[] citasString = new String[cursor.size()];
@@ -376,10 +377,12 @@ public class ManejadorCitas implements ManejadorArchivos    //Manejador del arch
                     i++;
                 }
 
+                //Se le pregunta al usuario para que seleccione la cita cuyos datos se quieren revisar
                 String citaSeleccionada = (String) JOptionPane.showInputDialog(null,"Seleccione la cita especifica que desea revisar", "PROYECTO FINAL JAVA", JOptionPane.QUESTION_MESSAGE, null, citasString, citasString[0]);
                 char notEmpty = citaSeleccionada.charAt(0);
                 int indiceCita = Arrays.asList(citasString).indexOf(citaSeleccionada);
 
+                //Se muestra la información de la cita seleccionada
                 JOptionPane.showMessageDialog(null, cursor.get(indiceCita).toString(), "PROYECTO FINAL JAVA", JOptionPane.INFORMATION_MESSAGE);
             }
 

@@ -26,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException, ParseException   //Metodo main: Se pide el ingreso por usuario y contraseña y luego se ejecuta el menu
     {
-        //userHandler.solicitudIngreso();
+        userHandler.solicitudIngreso();
         showMenu();
     }
 

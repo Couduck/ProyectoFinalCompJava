@@ -48,7 +48,8 @@ public class Cita   //Clase que guarda una cita creada por el usuario, mayorment
     }
 
     @Override
-    public String toString() {
+    public String toString()    //Transforma los valores de la cita en un String
+    {
         try {
             Doctor doctor = Main.doctorHandler.recuperarPorID(this.getDoctor());
             Paciente paciente = Main.pacientHandler.recuperarPorID(this.getPaciente());

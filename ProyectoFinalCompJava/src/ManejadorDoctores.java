@@ -192,7 +192,7 @@ public class ManejadorDoctores implements ManejadorArchivos     //Manejador de a
         return cursor;
     }
 
-    public Doctor recuperarPorID(int IDRecuperar) throws IOException
+    public Doctor recuperarPorID(int IDRecuperar) throws IOException    //Recupera del cursor un doctor utilizando como referencia su ID
     {
         load();
 
