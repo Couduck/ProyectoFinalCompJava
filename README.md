@@ -19,6 +19,7 @@ Al ingresar correctamente al programa, se le permitirá al usuario poder realiza
       B) Registrar un nuevo paciente en el sistema: Se  ingresa un nuevo paciente en el archivo que los almacena
       C) Registrar una nueva cita en el sistema: Se ingresa una cita nueva en el archivo que las almacena, requiere que por lomenos hayan un doctor y un paciente guardados
       D) Consultar cita: Permite al usuario consultar una cita existente dentro del archivo de citas, requiere que por lo menyos exista una cita creada y guardada
+      E) Salir del programa: Permite la salida del programa esde el menu principal de la aplicación
 
 # Créditos
 Desarrollado por Patricio Estrada Carreto (Couduck)
